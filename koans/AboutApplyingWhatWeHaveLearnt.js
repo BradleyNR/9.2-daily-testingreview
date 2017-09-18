@@ -60,9 +60,18 @@ describe("About Applying What We Have Learnt", function() {
 
   it("should add all the natural numbers below 1000 that are multiples of 3 or 5 (functional)", function () {
 
-    var sum = FILL_ME_IN;    /* try chaining range() and reduce() */
+    var sum = _.range(1000).reduce(function(a, b) {
+      if (b % 3 === 0 || b % 5 === 0) {
+        console.log('a', a);
+        console.log('b', b);
+        return a + b;
+      }
+      return a;
+    });
 
-    expect(233168).toBe(233168);
+    /* try chaining range() and reduce() */
+
+    expect(233168).toBe(sum);
   });
 
   /*********************************************************************************/
@@ -81,9 +90,18 @@ describe("About Applying What We Have Learnt", function() {
   it("should count the ingredient occurrence (functional)", function () {
     var ingredientCount = { "{ingredient name}": 0 };
 
+    ingredientCount = _.chain(products)
+      .map(function(products) { return products.ingredients })
+      .flatten()
+      .reduce(function(amount, b) {
+        amount[b] = (amount[b] || 0) + 1
+        return amount
+      }, {})
+      .value();
+
     /* chain() together map(), flatten() and reduce() */
 
-    expect(ingredientCount['mushrooms']).toBe(undefined);
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   /*********************************************************************************/
